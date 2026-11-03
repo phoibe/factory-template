@@ -15,7 +15,7 @@ automatique : plan, code, tests, revue, contrôles, mise en ligne.
 
 | Moment | Ce que tu vois | Ce que tu réponds |
 | --- | --- | --- |
-| Cadrage | Des questions sur ton appli, puis `## Fiche projet` avec la stack proposée | « go » pour poser les fondations, ou ce qu'il faut changer |
+| Cadrage | Des questions sur ton appli, un questionnaire design, deux ou trois directions visuelles au choix, puis `## Fiche projet` avec la stack proposée | « go » pour poser les fondations, ou ce qu'il faut changer |
 | Questions | Un commentaire avec des questions numérotées et mes recommandations | « oui à tout », ou « 1 oui, 2 non : … » |
 | Spec | `## Spec (version N)` | « go », ou ce qu'il faut changer |
 | Captures | Un tableau avant / après sur la PR | « ok », ou ce qu'il faut retoucher |
@@ -114,8 +114,9 @@ parallèle). La première fois, le panneau demande un jeton GitHub :
 ### 8. C'est prêt : commence par le cadrage
 
 Ouvre une issue « Nouveau projet (cadrage) » et décris ton idée en vrac. L'agent te pose ses questions sur le
-produit, propose une stack (des technos établies et bien documentées, en réutilisant les briques toutes
-faites), puis, après ton « go », pose les fondations de l'appli et crée une issue par feature de la première
+produit, puis un questionnaire design (où et quand tu t'en sers, ce que tu veux ressentir, les applis dont tu
+aimes ou n'aimes pas le look…) et te propose deux ou trois directions visuelles au choix. Il propose ensuite une stack (des technos établies et bien documentées, en réutilisant les briques toutes
+faites), puis, après ton « go », pose les fondations de l'appli (avec ses documents de design : couleurs, polices, composants) et crée une issue par feature de la première
 version. Tu lances ensuite chaque feature en y écrivant « go ». L'agent répond en général en quelques minutes.
 
 ## Si ça ne démarre pas
