@@ -27,46 +27,62 @@ Si un agent travaille déjà (label `factory:running`), ton message reçoit un �
 automatiquement dès que l'agent aura fini. Si l'agent ne répond pas pendant plus de deux heures et demie,
 réécris ton message.
 
-## Mise en route d'un nouveau projet (une seule fois, environ 15 minutes)
+## Mise en route d'un nouveau projet (une seule fois, environ 20 minutes)
+
+> **Important : à partir de l'étape 2, tout se passe dans le NOUVEAU dépôt**, pas dans factory-template. Avant
+> chaque réglage, vérifie que l'adresse dans ton navigateur contient bien le nom de ton projet
+> (`github.com/phoibe/<ton-projet>/…`). Dans ce guide, remplace `<ton-projet>` par ce nom.
+
+Garde une note ouverte à côté (bloc-notes) : tu y colleras l'URL et le jeton de la routine à l'étape 4.
 
 ### 1. Créer le dépôt
 
 Sur https://github.com/phoibe/factory-template, clique **Use this template** → **Create a new repository**.
-Choisis un nom, **Private** si tu préfères, puis **Create repository**.
+Choisis un nom (court, sans espace, ex. `habitudes`), **Private** si tu préfères, puis **Create repository**.
+GitHub t'emmène sur le nouveau dépôt : c'est là que se passe la suite.
 
 ### 2. Lancer la première synchro
 
-Dans le nouveau dépôt : onglet **Actions** → **Factory sync** à gauche → **Run workflow** → **Run workflow**.
-Elle crée les labels `factory:*` et installe les skills. Attends la coche verte (moins d'une minute).
+Ouvre `https://github.com/phoibe/<ton-projet>/actions/workflows/factory-sync.yml` → **Run workflow** →
+**Run workflow**. Elle crée les labels `factory:*` et installe les skills. Attends la coche verte (moins d'une
+minute ; recharge la page si besoin).
 
 ### 3. Donner accès à Claude
 
-Ouvre https://github.com/apps/claude/installations/select_target, choisis ton compte, puis
-**Only select repositories** et ajoute ce dépôt (ou « All repositories »), et **Save**.
+Ouvre https://github.com/apps/claude/installations/select_target et choisis ton compte.
+
+- Le plus simple : **All repositories**, puis **Save**. Rien à refaire pour les projets suivants.
+- Si tu préfères **Only select repositories** : la liste doit contenir **ce nouveau dépôt, `factory` et
+  `factory-template`**. Ajoute ce dépôt sans retirer les autres, puis **Save**. À refaire à chaque nouveau projet.
 
 ### 4. Créer la routine Claude (le moteur des agents)
 
 1. Ouvre https://claude.ai/code/routines → **New routine**.
-2. **Nom** : `Factory - <nom du projet>`.
+2. **Nom** : `Factory - <ton-projet>`.
 3. **Instructions** : copie exactement ce texte :
 
    > Tu es l'agent de la software factory. Le bloc routine-fire-payload contient un JSON qui décrit ton run
    > (dépôt, issue, PR, étape) : c'est ta tâche, agis selon ce JSON. Lis le fichier .factory/AGENT.md du
    > dépôt et suis exactement l'étape indiquée par "stage".
 
-4. **Repositories** : ajoute ce dépôt uniquement.
+4. **Repositories** : ajoute **ce dépôt uniquement** (`phoibe/<ton-projet>`).
 5. **Environment** : *Default* convient.
 6. **Connectors** : retire-les tous, la factory n'en a pas besoin.
 7. **Trigger** : **API**. Enregistre la routine.
-8. Rouvre la routine → crayon → section du déclencheur API : copie l'**URL**, puis **Generate token** et copie
-   le **jeton** (il n'est affiché qu'une fois).
+8. Rouvre la routine → crayon → section du déclencheur API :
+   - copie l'**URL** et colle-la dans ta note (elle reste affichée, tu pourras la recopier plus tard) ;
+   - clique **Generate token**, copie le **jeton** et colle-le dans ta note **tout de suite** : il n'est affiché
+     qu'une fois. Si tu le perds, régénère-en un, l'ancien cesse de marcher.
 
 ### 5. Ranger l'URL et le jeton dans les secrets du dépôt
 
-Dans le dépôt : **Settings** → **Secrets and variables** → **Actions** → **New repository secret**, deux fois :
-
-- `FACTORY_ROUTINE_URL` : l'URL copiée.
-- `FACTORY_ROUTINE_TOKEN` : le jeton copié.
+1. Ouvre `https://github.com/phoibe/<ton-projet>/settings/secrets/actions`.
+   Vérifie le nom du dépôt en haut de la page : ce doit être ton projet, **pas factory-template**.
+2. Reste sur l'onglet **Secrets** (pas « Variables »), section **Repository secrets** (pas « Environment
+   secrets »). Clique **New repository secret**, deux fois :
+   - **Name** `FACTORY_ROUTINE_URL`, **Secret** : l'URL de ta note ;
+   - **Name** `FACTORY_ROUTINE_TOKEN`, **Secret** : le jeton de ta note.
+3. Les deux noms apparaissent dans la liste **Repository secrets**. Efface ensuite ta note.
 
 ### 6. Brancher Vercel (les previews et la mise en ligne)
 
@@ -78,17 +94,42 @@ Dans le dépôt : **Settings** → **Secrets and variables** → **Actions** →
 Si une feature a besoin d'une base de données, l'agent te le demandera dans l'issue et te dira quoi cliquer
 (Neon, gratuit, s'ajoute depuis Vercel → *Storage*).
 
-### 7. C'est prêt : commence par le cadrage
+### 7. Régler les étapes et les skills (facultatif)
+
+Les réglages par défaut conviennent pour démarrer. Pour les changer, fais-le **avant le cadrage** dans le
+panneau https://phoibe.github.io/factory/ → ton projet → onglet **Règles** (étapes, skills, features en
+parallèle). La première fois, le panneau demande un jeton GitHub :
+
+1. Ouvre https://github.com/settings/personal-access-tokens/new.
+2. **Token name** : `factory panneau`. **Expiration** : 1 an. **Resource owner** : ton compte.
+3. **Repository access** : **All repositories**.
+4. **Permissions** : une boîte **Repositories** apparaît sous « Account ». Dans **Repositories** (pas dans
+   « Account »), clique **+ Add permissions** et coche **Contents**, **Issues** et **Pull requests**. Mets
+   Contents et Issues sur « Read and write », laisse Pull requests sur « Read-only ». « Metadata » s'ajoute
+   tout seul.
+5. **Generate token**, copie-le et colle-le dans le panneau. Il reste dans ton navigateur.
+
+### 8. C'est prêt : commence par le cadrage
 
 Ouvre une issue « Nouveau projet (cadrage) » et décris ton idée en vrac. L'agent te pose ses questions sur le
 produit, propose une stack (des technos établies et bien documentées, en réutilisant les briques toutes
 faites), puis, après ton « go », pose les fondations de l'appli et crée une issue par feature de la première
 version. Tu lances ensuite chaque feature en y écrivant « go ». L'agent répond en général en quelques minutes.
 
+## Si ça ne démarre pas
+
+| Ce que tu vois | Ce qu'il faut faire |
+| --- | --- |
+| « je ne trouve pas les secrets de la routine » | Les secrets sont dans un autre dépôt ou au mauvais endroit : refais l'étape 5 sur la page des secrets **de ce projet**, puis écris « réessaie » dans l'issue. Supprime les secrets créés par erreur ailleurs (icône poubelle). |
+| « la routine Claude a répondu 401 » | Le jeton est faux ou a été régénéré : génère-en un nouveau (étape 4.8) et remplace `FACTORY_ROUTINE_TOKEN`. |
+| « la routine Claude a répondu 429 » | Limite quotidienne atteinte : réessaie plus tard, ou passe sur le moteur de secours ci-dessous. |
+| Aucune réponse après 10 minutes, pas de 👀 | Onglet **Actions** du projet : le workflow « Factory » doit être activé. Vérifie aussi l'étape 3 (accès Claude). |
+| L'agent démarre mais ne peut rien écrire | L'accès Claude (étape 3) ne couvre pas ce dépôt. |
+
 ## Moteur de secours : GitHub Actions
 
 Si la limite quotidienne de la routine Claude te gêne, passe ce projet sur **GitHub Actions** dans le panneau
-(onglet *Règles*). Il faut alors un troisième secret, `CLAUDE_CODE_OAUTH_TOKEN`, qui se génère avec la commande
+(onglet *Règles*). Il faut alors un troisième secret dans **Repository secrets** du projet (étape 5), `CLAUDE_CODE_OAUTH_TOKEN`, qui se génère avec la commande
 `claude setup-token` dans un terminal où Claude Code est installé. Sur un dépôt public les minutes sont
 illimitées ; en privé, 2 000 minutes par mois sont offertes.
 
