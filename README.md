@@ -21,8 +21,9 @@ automatique : plan, code, tests, revue, contrôles, mise en ligne.
 Une réponse courte et sans réserve (« go », « ok », « oui c'est bon », 👍) vaut validation. Dès que tu ajoutes
 « mais », « sauf » ou une question, l'agent le prend comme une demande de changement.
 
-Si un agent travaille déjà (label `factory:running`), ton message sera lu avant qu'il termine. S'il ne se
-passe rien pendant plus d'une heure et demie, réécris ton message.
+Si un agent travaille déjà (label `factory:running`), ton message reçoit un 👀 : il sera traité
+automatiquement dès que l'agent aura fini. Si l'agent ne répond pas pendant plus de deux heures et demie,
+réécris ton message.
 
 ## Mise en route d'un nouveau projet (une seule fois, environ 15 minutes)
 
