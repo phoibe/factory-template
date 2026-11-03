@@ -15,4 +15,10 @@ body:
     id: constraints
     attributes:
       label: Contraintes ou envies (facultatif)
-      description: Sur mobile surtout ? Des comptes ? Une appli que tu as aimée et qui t'inspire ?
+      description: Sur mobile surtout ? Des comptes ? Des données à partager ?
+  - type: textarea
+    id: look
+    attributes:
+      label: Le look que tu imagines (facultatif)
+      description: Des applis, sites ou objets dont tu aimes l'allure, et ceux que tu n'aimes pas. L'agent te posera de toute façon ses questions design.
+      placeholder: "J'aime le calme de Things et les couleurs de Duolingo ; je n'aime pas les applis bancaires grises."
