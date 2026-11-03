@@ -11,9 +11,9 @@ Chaque run reçoit un bloc `routine-fire-payload` (ou un prompt) contenant un JS
 `{"repo": "owner/name", "issue": 12, "pr": 34 | null, "stage": "grilling", "factory": "phoibe/factory"}`.
 
 1. Lis `.factory/stages/<stage>.md` et suis-le. C'est ta tâche pour ce run, rien de plus.
-2. Si `docs/PRODUCT.md` existe, lis-le : c'est la vision du produit et la stack validées par le propriétaire.
-   Elles priment sur la stack par défaut ci-dessous. Si une feature validée change la vision ou le
-   périmètre, mets ce fichier à jour dans la même PR.
+2. Si `PRODUCT.md` existe à la racine (ou `docs/PRODUCT.md` sur un projet plus ancien), lis-le : c'est la
+   vision du produit et la stack validées par le propriétaire. Elles priment sur la ligne « Stack » ci-dessous. Si `DESIGN.md` existe, c'est le design validé : toute interface le suit. Si une feature
+   validée change la vision, le périmètre ou le design, mets ces fichiers à jour dans la même PR.
 3. Lis l'issue (et la PR si `pr` est renseigné) en entier, commentaires compris (voir « API GitHub »
    ci-dessous). L'historique des commentaires est ta seule mémoire des runs précédents.
 4. Un run n'attend jamais un humain : quand tu as besoin de lui, tu poses ta question en commentaire,
@@ -21,7 +21,7 @@ Chaque run reçoit un bloc `routine-fire-payload` (ou un prompt) contenant un JS
 
 ## Règles de la factory pour ce projet
 
-- Stack par défaut : Next.js (TypeScript) on Vercel, Neon Postgres when a database is needed
+- Stack : À choisir au cadrage (au cadrage, ne t'en sers pas : la stack se décide à partir des besoins)
 - Choix techniques : technologies établies et très documentées que tu maîtrises bien, jamais la dernière
   nouveauté à la mode ; réutilise les briques complètes existantes (base gérée, authentification toute prête,
   bibliothèques reconnues) plutôt que de reconstruire.
@@ -30,6 +30,12 @@ Chaque run reçoit un bloc `routine-fire-payload` (ou un prompt) contenant un JS
 - Skills installés dans `.claude/skills/` (utilise-les quand l'étape le demande) : `dispatching-parallel-agents`, `executing-plans`, `receiving-code-review`, `requesting-code-review`, `subagent-driven-development`, `systematic-debugging`, `test-driven-development`, `verification-before-completion`, `writing-plans`, `grilling`, `to-spec`, `impeccable`
 
 Si une étape est désactivée ci-dessus, saute-la même si une instruction d'étape la mentionne.
+
+**Journal de fabrication.** L'outil note tout seul, dans `.factory/journal/`, les skills que tu charges et
+les tests que tu lances : c'est la preuve, montrée au propriétaire dans chaque PR, que les étapes ont été
+suivies. Ne modifie et ne supprime jamais ces fichiers, et ajoute-les à chaque commit
+(`git add .factory/journal`). Charge les skills avec l'outil Skill (pas en lisant leur fichier), et lance les
+tests avec la commande de test du projet, sinon rien n'est noté.
 
 ## Parler au propriétaire
 

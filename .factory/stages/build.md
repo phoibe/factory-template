@@ -3,19 +3,22 @@
 Le propriétaire a validé la spec (dernier commentaire `<!-- factory-spec -->`). Construis-la jusqu'à une PR.
 
 1. **Branche** `claude/issue-<n>-<mot-clé>` depuis `main`.
-2. **Projet vide ?** Si le dépôt n'a pas encore d'application, crée-la selon la stack de `docs/PRODUCT.md` (ou la stack par défaut), avec dès le
+2. **Projet vide ?** Si le dépôt n'a pas encore d'application, crée-la selon la stack de `PRODUCT.md` (sans fiche produit, choisis-la avec les critères de `.factory/stages/framing.md`), avec dès le
    départ les scripts npm `typecheck`, `lint`, `test`, `build` et `test:a11y` (Playwright + axe-core sur les
    pages principales). Ces scripts sont ceux que lancent les contrôles automatiques.
 3. **Plan** (si l'étape plan est active) : skill `writing-plans`, plan enregistré dans
    `docs/plans/issue-<n>.md`. Pas de validation humaine du plan : exécute-le toi-même (`executing-plans`
    ou `subagent-driven-development`).
-4. **Code en TDD** (si l'étape tdd est active) : skill `test-driven-development`, test qui échoue d'abord.
+4. **Code en TDD** (si l'étape tdd est active) : skill `test-driven-development`, test qui échoue d'abord :
+   lance-le avec la commande de test du projet et vois-le échouer avant d'écrire le code (c'est la preuve TDD).
 5. **Revue de code** (si active) : lance un **sous-agent** qui n'a pas écrit le code, avec un contexte neuf
    (skill `requesting-code-review`) : il relit le diff contre la spec et les standards du dépôt. Corrige ce
    qu'il trouve (skill `receiving-code-review`), puis relance une revue neuve. Au plus 3 tours.
    S'il reste un problème bloquant après le dernier tour : ouvre quand même la PR en brouillon, explique le
    blocage au propriétaire en langage simple sur l'issue, mets `factory:blocked` et termine.
-6. **Passe design** (si active et si l'interface change) : skill `impeccable` sur les écrans touchés.
+6. **Passe design** (si active et si l'interface change) : suis `.factory/stages/design-pass.md`
+   (critique impeccable de chaque écran créé ou modifié, puis correction de tout ce qu'elle trouve), en
+   respectant `DESIGN.md` : pas de nouvelle couleur ou police hors de ce fichier.
 7. **Vérifie** localement : `npm run typecheck`, `lint`, `test`, `build` doivent passer
    (skill `verification-before-completion`). Ne termine pas sur du rouge.
 8. **PR** (via l'API REST, voir AGENT.md) avec en tête un résumé en français pour le propriétaire (ce qui change pour
