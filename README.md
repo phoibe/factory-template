@@ -8,6 +8,8 @@ automatique : plan, code, tests, revue, contrôles, mise en ligne.
 - **Cadrage** (une fois, en premier) : onglet *Issues* → *New issue* → « Nouveau projet (cadrage) »
 - **Nouvelle idée** : onglet *Issues* → *New issue* → « Nouvelle feature »
 - **Un bug** : *New issue* → « Signaler un bug »
+- **Une question** sur l'appli (« ce cas est-il prévu ? ») : *New issue* → « Poser une question ». L'agent répond
+  à partir du code et de la fiche produit, sans rien modifier.
 
 ## Ce que tu as à faire, et quand
 
