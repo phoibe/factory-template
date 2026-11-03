@@ -5,6 +5,7 @@ une issue, tu réponds aux questions de l'agent, tu valides la spec, les capture
 automatique : plan, code, tests, revue, contrôles, mise en ligne.
 
 - **Panneau** (suivi et règles) : https://phoibe.github.io/factory/
+- **Cadrage** (une fois, en premier) : onglet *Issues* → *New issue* → « Nouveau projet (cadrage) »
 - **Nouvelle idée** : onglet *Issues* → *New issue* → « Nouvelle feature »
 - **Un bug** : *New issue* → « Signaler un bug »
 
@@ -12,6 +13,7 @@ automatique : plan, code, tests, revue, contrôles, mise en ligne.
 
 | Moment | Ce que tu vois | Ce que tu réponds |
 | --- | --- | --- |
+| Cadrage | Des questions sur ton appli, puis `## Fiche projet` avec la stack proposée | « go » pour poser les fondations, ou ce qu'il faut changer |
 | Questions | Un commentaire avec des questions numérotées et mes recommandations | « oui à tout », ou « 1 oui, 2 non : … » |
 | Spec | `## Spec (version N)` | « go », ou ce qu'il faut changer |
 | Captures | Un tableau avant / après sur la PR | « ok », ou ce qu'il faut retoucher |
@@ -76,9 +78,12 @@ Dans le dépôt : **Settings** → **Secrets and variables** → **Actions** →
 Si une feature a besoin d'une base de données, l'agent te le demandera dans l'issue et te dira quoi cliquer
 (Neon, gratuit, s'ajoute depuis Vercel → *Storage*).
 
-### 7. C'est prêt
+### 7. C'est prêt : commence par le cadrage
 
-Ouvre une issue « Nouvelle feature ». L'agent répond en général en quelques minutes.
+Ouvre une issue « Nouveau projet (cadrage) » et décris ton idée en vrac. L'agent te pose ses questions sur le
+produit, propose une stack (des technos établies et bien documentées, en réutilisant les briques toutes
+faites), puis, après ton « go », pose les fondations de l'appli et crée une issue par feature de la première
+version. Tu lances ensuite chaque feature en y écrivant « go ». L'agent répond en général en quelques minutes.
 
 ## Moteur de secours : GitHub Actions
 
