@@ -93,8 +93,8 @@ Ouvre https://github.com/apps/claude/installations/select_target et choisis ton 
    n'existe pas : c'est normal.
 3. Ensuite, chaque PR reçoit une preview et chaque fusion met la version en ligne.
 
-Si une feature a besoin d'une base de données, l'agent te le demandera dans l'issue et te dira quoi cliquer
-(Neon, gratuit, s'ajoute depuis Vercel → *Storage*).
+Si une feature a besoin d'un service (base de données, authentification…), l'agent te le demandera dans
+l'issue et te dira quoi cliquer.
 
 ### 7. Régler les étapes et les skills (facultatif)
 
