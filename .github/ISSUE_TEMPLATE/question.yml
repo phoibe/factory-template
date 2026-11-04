@@ -1,5 +1,5 @@
 name: Poser une question
-description: Une question sur l'appli (comment elle se comporte, si un cas est prévu). L'agent répond sans rien modifier.
+description: Une question sur l'appli (comment elle se comporte, si un cas est prévu). Tu peux aussi y demander une feature ou signaler un bug, l'agent crée l'issue lui-même.
 title: "Question : "
 labels: ["factory:question"]
 body:
