@@ -44,7 +44,7 @@ Le script fait tout seul : création du dépôt (ou ajout des fichiers de la fac
 ton code), accès de Claude, secrets de la routine, labels et skills, Vercel, puis il ouvre l'issue de
 cadrage. Il ne te demande que :
 
-- **la première fois seulement** : l'outil GitHub (`brew install gh`, le script te le dit s'il manque), une
+- **la première fois seulement** : l'outil GitHub (le script l'installe s'il manque), une
   connexion à GitHub et à Vercel dans le navigateur, puis l'URL et le jeton de ta routine Claude (voir
   « La routine Claude » ci-dessous) ; il les garde sur ton ordinateur pour les projets suivants ;
 - **à chaque projet** : un clic pour ajouter le dépôt à ta routine (le script te donne le lien), et une
