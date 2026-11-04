@@ -14,4 +14,4 @@ permissions:
 
 jobs:
   sync:
-    uses: phoibe/factory/.github/workflows/sync.yml@main
+    uses: phoibe/factory/.github/workflows/sync.yml@stable

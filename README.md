@@ -29,9 +29,15 @@ Si un agent travaille déjà (label `factory:running`), ton message reçoit un �
 automatiquement dès que l'agent aura fini. Si l'agent ne répond pas pendant plus de deux heures et demie,
 réécris ton message.
 
+## La version de la factory que suivent tes projets
+
+Tes projets utilisent la **version stable** de la factory, jamais celle en cours de travail. Quand des
+améliorations de la factory sont prêtes, le bouton « Déclarer stable » du tableau relance ses tests et, s'ils
+passent, tous les projets prennent la nouvelle version à leur prochain run.
+
 ## Mettre un projet dans la factory (un script, environ 5 minutes)
 
-**Le plus simple** : [télécharge les outils Mac](https://github.com/phoibe/factory/releases/latest/download/factory-outils.zip), décompresse le fichier, puis double-clique
+**Le plus simple** : [télécharge les outils Mac](https://github.com/phoibe/factory/releases/download/outils/factory-outils.zip), décompresse le fichier, puis double-clique
 « Nouveau projet » ou « Adopter un projet » (un projet que tu as déjà commencé). La première fois, si ton Mac
 refuse de l'ouvrir parce qu'il vient d'internet : Réglages Système > Confidentialité et sécurité > « Ouvrir
 quand même ».
@@ -39,7 +45,7 @@ quand même ».
 Ou bien, dans le Terminal, colle cette ligne telle quelle et appuie sur Entrée :
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/phoibe/factory/main/scripts/factory.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/phoibe/factory/stable/scripts/factory.sh)
 ```
 
 Le script te pose ses questions : nouveau projet ou projet déjà commencé, puis le nom du nouveau projet, ou
