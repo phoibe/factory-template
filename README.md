@@ -29,13 +29,58 @@ Si un agent travaille déjà (label `factory:running`), ton message reçoit un �
 automatiquement dès que l'agent aura fini. Si l'agent ne répond pas pendant plus de deux heures et demie,
 réécris ton message.
 
-## Mise en route d'un nouveau projet (une seule fois, environ 20 minutes)
+## Mettre un projet dans la factory (un script, environ 5 minutes)
+
+Sur ton Mac, ouvre le Terminal, colle cette ligne telle quelle et appuie sur Entrée :
+
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/phoibe/factory/main/scripts/factory.sh)
+```
+
+Le script te pose ses questions : nouveau projet ou projet déjà commencé, puis le nom du nouveau projet, ou
+le projet existant à choisir dans la liste de tes dépôts. Il te montre ce qu'il va faire et attend ton accord.
+
+Le script fait tout seul : création du dépôt (ou ajout des fichiers de la factory à ton projet, sans toucher à
+ton code), accès de Claude, secrets de la routine, labels et skills, Vercel, puis il ouvre l'issue de
+cadrage. Il ne te demande que :
+
+- **la première fois seulement** : l'outil GitHub (le script l'installe s'il manque), une
+  connexion à GitHub et à Vercel dans le navigateur, puis l'URL et le jeton de ta routine Claude (voir
+  « La routine Claude » ci-dessous) ; il les garde sur ton ordinateur pour les projets suivants ;
+- **à chaque projet** : un clic pour ajouter le dépôt à ta routine (le script ouvre la page), et une
+  phrase pour décrire ton idée.
+
+Pour un projet adopté, l'agent lit d'abord ton code, te dit ce qu'il a compris, et ne pose que les questions
+sur ce qu'il n'a pas pu deviner. Il garde ta stack et ne refait pas l'appli.
+
+### La routine Claude (une seule fois, pour tous tes projets)
+
+Le script te guide pas à pas si tu n'en as pas encore (il ouvre la page et copie les instructions pour
+toi). Pour mémoire, voici ce qu'il te fait faire :
+
+1. Ouvre https://claude.ai/code/routines → **New routine**, nom `Factory`.
+2. **Instructions** : copie exactement ce texte :
+
+   > Tu es l'agent de la software factory. Le bloc routine-fire-payload contient un JSON qui décrit ton run
+   > (dépôt, issue, PR, étape) : c'est ta tâche, agis selon ce JSON. Lis le fichier .factory/AGENT.md du
+   > dépôt et suis exactement l'étape indiquée par "stage".
+
+3. **Repositories** : tes projets (le script te rappellera d'y ajouter chaque nouveau). **Environment** :
+   *Default*. **Connectors** : aucun. **Trigger** : **API**, puis **Generate token**. Garde l'URL et le jeton
+   le temps de les coller dans le script.
+
+Si tu régénères un jour le jeton de la routine, relance le script et choisis « 3 » : il le met dans tous tes
+projets.
+
+Le panneau (https://phoibe.github.io/factory/) trouve tout seul les projets de la factory. Il demande un jeton
+GitHub la première fois : voir l'étape 7 plus bas.
+
+<details>
+<summary>Mise en route à la main, sans le script</summary>
 
 > **Important : à partir de l'étape 2, tout se passe dans le NOUVEAU dépôt**, pas dans factory-template. Avant
 > chaque réglage, vérifie que l'adresse dans ton navigateur contient bien le nom de ton projet
 > (`github.com/phoibe/<ton-projet>/…`). Dans ce guide, remplace `<ton-projet>` par ce nom.
-
-Garde une note ouverte à côté (bloc-notes) : tu y colleras l'URL et le jeton de la routine à l'étape 4.
 
 ### 1. Créer le dépôt
 
@@ -60,14 +105,14 @@ Ouvre https://github.com/apps/claude/installations/select_target et choisis ton 
 ### 4. Créer la routine Claude (le moteur des agents)
 
 1. Ouvre https://claude.ai/code/routines → **New routine**.
-2. **Nom** : `Factory - <ton-projet>`.
+2. **Nom** : `Factory` (une seule routine sert à tous tes projets ; si tu l'as déjà, passe à l'étape 4 et ajoute juste ce dépôt).
 3. **Instructions** : copie exactement ce texte :
 
    > Tu es l'agent de la software factory. Le bloc routine-fire-payload contient un JSON qui décrit ton run
    > (dépôt, issue, PR, étape) : c'est ta tâche, agis selon ce JSON. Lis le fichier .factory/AGENT.md du
    > dépôt et suis exactement l'étape indiquée par "stage".
 
-4. **Repositories** : ajoute **ce dépôt uniquement** (`phoibe/<ton-projet>`).
+4. **Repositories** : ajoute **ce dépôt** (`phoibe/<ton-projet>`), sans retirer les autres projets.
 5. **Environment** : *Default* convient.
 6. **Connectors** : retire-les tous, la factory n'en a pas besoin.
 7. **Trigger** : **API**. Enregistre la routine.
@@ -111,13 +156,15 @@ parallèle). La première fois, le panneau demande un jeton GitHub :
    tout seul.
 5. **Generate token**, copie-le et colle-le dans le panneau. Il reste dans ton navigateur.
 
-### 8. C'est prêt : commence par le cadrage
+</details>
+
+### 8. C'est prêt : commence par le cadrage (le script l'ouvre pour toi)
 
 Ouvre une issue « Nouveau projet (cadrage) » et décris ton idée en vrac. L'agent te pose ses questions sur le
 produit, puis un questionnaire design (où et quand tu t'en sers, ce que tu veux ressentir, les applis dont tu
 aimes ou n'aimes pas le look…) et te propose deux ou trois directions visuelles au choix. Il propose ensuite une stack (des technos établies et bien documentées, en réutilisant les briques toutes
 faites), puis, après ton « go », pose les fondations de l'appli (avec ses documents de design : couleurs, polices, composants) et crée une issue par feature de la première
-version. Tu lances ensuite chaque feature en y écrivant « go ». L'agent répond en général en quelques minutes.
+version. Tu lances ensuite chaque feature en y écrivant « go ». Plus tard, pour changer la vision, le périmètre, le design ou la stack, utilise « Revoir le cadrage » dans le panneau : l'agent met la fiche produit à jour et crée les nouvelles features, sans refaire les fondations. L'agent répond en général en quelques minutes.
 
 ## Si ça ne démarre pas
 
