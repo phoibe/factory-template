@@ -47,13 +47,16 @@ cadrage. Il ne te demande que :
 - **la première fois seulement** : l'outil GitHub (le script l'installe s'il manque), une
   connexion à GitHub et à Vercel dans le navigateur, puis l'URL et le jeton de ta routine Claude (voir
   « La routine Claude » ci-dessous) ; il les garde sur ton ordinateur pour les projets suivants ;
-- **à chaque projet** : un clic pour ajouter le dépôt à ta routine (le script te donne le lien), et une
+- **à chaque projet** : un clic pour ajouter le dépôt à ta routine (le script ouvre la page), et une
   phrase pour décrire ton idée.
 
 Pour un projet adopté, l'agent lit d'abord ton code, te dit ce qu'il a compris, et ne pose que les questions
 sur ce qu'il n'a pas pu deviner. Il garde ta stack et ne refait pas l'appli.
 
 ### La routine Claude (une seule fois, pour tous tes projets)
+
+Le script te guide pas à pas si tu n'en as pas encore (il ouvre la page et copie les instructions pour
+toi). Pour mémoire, voici ce qu'il te fait faire :
 
 1. Ouvre https://claude.ai/code/routines → **New routine**, nom `Factory`.
 2. **Instructions** : copie exactement ce texte :
@@ -65,6 +68,9 @@ sur ce qu'il n'a pas pu deviner. Il garde ta stack et ne refait pas l'appli.
 3. **Repositories** : tes projets (le script te rappellera d'y ajouter chaque nouveau). **Environment** :
    *Default*. **Connectors** : aucun. **Trigger** : **API**, puis **Generate token**. Garde l'URL et le jeton
    le temps de les coller dans le script.
+
+Si tu régénères un jour le jeton de la routine, relance le script et choisis « 3 » : il le met dans tous tes
+projets.
 
 Le panneau (https://phoibe.github.io/factory/) trouve tout seul les projets de la factory. Il demande un jeton
 GitHub la première fois : voir l'étape 7 plus bas.
