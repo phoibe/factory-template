@@ -31,15 +31,14 @@ réécris ton message.
 
 ## Mettre un projet dans la factory (un script, environ 5 minutes)
 
-Sur ton Mac, ouvre le Terminal et colle **une** de ces deux lignes (remplace `mon-appli` par le nom voulu) :
+Sur ton Mac, ouvre le Terminal, colle cette ligne telle quelle et appuie sur Entrée :
 
 ```bash
-# Nouveau projet
-bash <(curl -fsSL https://raw.githubusercontent.com/phoibe/factory/main/scripts/factory.sh) nouveau mon-appli
-
-# Projet déjà commencé sans la factory (le dépôt existe déjà sur GitHub)
-bash <(curl -fsSL https://raw.githubusercontent.com/phoibe/factory/main/scripts/factory.sh) adopter mon-appli
+bash <(curl -fsSL https://raw.githubusercontent.com/phoibe/factory/main/scripts/factory.sh)
 ```
+
+Le script te pose ses questions : nouveau projet ou projet déjà commencé, puis le nom du nouveau projet, ou
+le projet existant à choisir dans la liste de tes dépôts. Il te montre ce qu'il va faire et attend ton accord.
 
 Le script fait tout seul : création du dépôt (ou ajout des fichiers de la factory à ton projet, sans toucher à
 ton code), accès de Claude, secrets de la routine, labels et skills, Vercel, puis il ouvre l'issue de
