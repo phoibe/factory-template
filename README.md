@@ -31,7 +31,12 @@ réécris ton message.
 
 ## Mettre un projet dans la factory (un script, environ 5 minutes)
 
-Sur ton Mac, ouvre le Terminal, colle cette ligne telle quelle et appuie sur Entrée :
+**Le plus simple** : [télécharge les outils Mac](https://github.com/phoibe/factory/releases/latest/download/factory-outils.zip), décompresse le fichier, puis double-clique
+« Nouveau projet » ou « Adopter un projet » (un projet que tu as déjà commencé). La première fois, si ton Mac
+refuse de l'ouvrir parce qu'il vient d'internet : Réglages Système > Confidentialité et sécurité > « Ouvrir
+quand même ».
+
+Ou bien, dans le Terminal, colle cette ligne telle quelle et appuie sur Entrée :
 
 ```bash
 bash <(curl -fsSL https://raw.githubusercontent.com/phoibe/factory/main/scripts/factory.sh)
