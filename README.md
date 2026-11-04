@@ -1,7 +1,7 @@
 # Projet de la software factory
 
 Ce dépôt est construit par la [software factory](https://github.com/phoibe/factory). Tu décris une idée dans
-une issue, tu réponds aux questions de l'agent, tu valides la spec, les captures et la recette. Le reste est
+une issue, tu réponds aux questions de l'agent, tu valides les captures et la recette (et la spec seulement quand elle est sensible, ou toujours si tu le règles ainsi). Le reste est
 automatique : plan, code, tests, revue, contrôles, mise en ligne.
 
 - **Panneau** (suivi et règles) : https://phoibe.github.io/factory/
@@ -17,7 +17,7 @@ automatique : plan, code, tests, revue, contrôles, mise en ligne.
 | --- | --- | --- |
 | Cadrage | Des questions sur ton appli, un questionnaire design, deux ou trois directions visuelles au choix, puis `## Fiche projet` avec la stack proposée | « go » pour poser les fondations, ou ce qu'il faut changer |
 | Questions | Un commentaire avec des questions numérotées et mes recommandations | « oui à tout », ou « 1 oui, 2 non : … » |
-| Spec | `## Spec (version N)` | « go », ou ce qu'il faut changer |
+| Spec | `## Spec (version N)` | Rien par défaut : la construction démarre seule. L'agent demande « go » seulement pour une spec sensible, ou toujours si « Valider chaque spec » est coché dans le panneau |
 | Captures | Un tableau avant / après sur la PR | « ok », ou ce qu'il faut retoucher |
 | Recette | Un lien vers la preview | « ok » pour mettre en ligne, ou ce qui ne va pas |
 | Blocage | Le label rouge « bloqué » et une question | La réponse à la question |
