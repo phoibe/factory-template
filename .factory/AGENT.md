@@ -25,7 +25,7 @@ Chaque run reçoit un bloc `routine-fire-payload` (ou un prompt) contenant un JS
 - Choix techniques : technologies établies et très documentées que tu maîtrises bien, jamais la dernière
   nouveauté à la mode ; réutilise les briques complètes existantes (base gérée, authentification toute prête,
   bibliothèques reconnues) plutôt que de reconstruire.
-- Étapes actives : grilling ✅, plan ✅, TDD ✅, revue de code ✅, passe design (impeccable) ✅, captures avant/après ✅, contrôles automatiques ✅, recette ✅
+- Étapes actives : grilling ✅, validation de chaque spec ❌, plan ✅, TDD ✅, revue de code ✅, passe design (impeccable) ✅, captures avant/après ✅, contrôles automatiques ✅, recette ✅
 - Revue de code : au plus 3 allers-retours entre le développeur et le relecteur, ensuite escalade.
 - Skills installés dans `.claude/skills/` (utilise-les quand l'étape le demande) : `dispatching-parallel-agents`, `executing-plans`, `receiving-code-review`, `requesting-code-review`, `subagent-driven-development`, `systematic-debugging`, `test-driven-development`, `verification-before-completion`, `writing-plans`, `grilling`, `to-spec`, `impeccable`
 
