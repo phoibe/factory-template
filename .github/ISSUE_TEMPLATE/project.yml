@@ -1,13 +1,13 @@
-name: Nouveau projet (cadrage)
-description: À faire une fois, avant la première feature. Décris ton idée d'appli en vrac, l'agent te pose ses questions puis propose une stack.
+name: Cadrage du projet (nouveau ou révision)
+description: Avant la première feature, ou plus tard pour changer la vision, le périmètre, le design ou la stack. L'agent ne refait jamais les fondations d'un projet déjà cadré.
 title: "Cadrage : "
 labels: ["factory:project"]
 body:
   - type: textarea
     id: idea
     attributes:
-      label: Ton idée d'appli
-      description: Pour qui, pour quoi faire, ce qui te donne envie de la construire. En vrac, avec tes mots.
+      label: Ton idée d'appli, ou ce que tu veux changer
+      description: "Nouveau projet : pour qui, pour quoi faire, en vrac, avec tes mots. Révision : ce que tu veux changer et pourquoi."
       placeholder: "Une appli pour suivre mes habitudes : je coche ce que j'ai fait chaque jour et je vois mes séries."
     validations:
       required: true

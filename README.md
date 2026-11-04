@@ -117,7 +117,7 @@ Ouvre une issue « Nouveau projet (cadrage) » et décris ton idée en vrac. L'a
 produit, puis un questionnaire design (où et quand tu t'en sers, ce que tu veux ressentir, les applis dont tu
 aimes ou n'aimes pas le look…) et te propose deux ou trois directions visuelles au choix. Il propose ensuite une stack (des technos établies et bien documentées, en réutilisant les briques toutes
 faites), puis, après ton « go », pose les fondations de l'appli (avec ses documents de design : couleurs, polices, composants) et crée une issue par feature de la première
-version. Tu lances ensuite chaque feature en y écrivant « go ». L'agent répond en général en quelques minutes.
+version. Tu lances ensuite chaque feature en y écrivant « go ». Plus tard, pour changer la vision, le périmètre, le design ou la stack, utilise « Revoir le cadrage » dans le panneau : l'agent met la fiche produit à jour et crée les nouvelles features, sans refaire les fondations. L'agent répond en général en quelques minutes.
 
 ## Si ça ne démarre pas
 
