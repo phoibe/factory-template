@@ -2,6 +2,7 @@
   "version": 1,
   "runner": "claude-cloud",
   "maxParallel": 2,
+  "autoPick": false,
   "stack": "À choisir au cadrage",
   "stages": {
     "grilling": true,
@@ -60,8 +61,8 @@
         "code-review": false,
         "codebase-design": false,
         "diagnosing-bugs": false,
-        "domain-modeling": false,
-        "grill-with-docs": false,
+        "domain-modeling": true,
+        "grill-with-docs": true,
         "implement": false,
         "implement-spec": false,
         "improve-codebase-architecture": false,

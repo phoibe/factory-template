@@ -9,15 +9,16 @@ But : une spec fonctionnelle que le propriétaire valide (porte 1).
    - les règles et cas limites décidés ;
    - ce qui est hors périmètre ;
    - les critères d'acceptation, sous forme de vérifications qu'il pourra faire lui-même sur la preview.
+   Si les questions ont produit des documents (voir `.factory/stages/docs.md`), ajoute la phrase de résumé en français.
 3. Publie-la en commentaire, qui commence par `<!-- factory-agent -->` puis `<!-- factory-spec -->` et un
    titre `## Spec (version N)`. Une nouvelle version remplace l'ancienne : ne modifie pas les anciens commentaires.
 4. **Faut-il la faire valider ?** Oui si l'étape « validation de chaque spec » est active (voir AGENT.md).
    Sinon, oui seulement si la spec est **sensible** : elle peut faire perdre ou effacer des données, touche à
    l'argent, à la sécurité, aux comptes ou au partage de données personnelles, change la vision ou le design
    validés, ou repose sur une hypothèse importante que le grilling n'a pas confirmée.
-   - **À valider** : termine par « Réponds « go » pour lancer la construction, ou dis-moi ce qu'il faut
+   - **À valider** : termine par « Répondez « go » pour lancer la construction, ou dites-moi ce qu'il faut
      changer. » (et, si la validation est désactivée, dis en une phrase pourquoi tu demandes quand même).
-   - **Pas à valider** : termine par « Je lance la construction sans attendre ta validation (réglage du
-     projet). Si quelque chose ne va pas, écris-le ici : j'en tiendrai compte. »
+   - **Pas à valider** : termine par « Je lance la construction sans attendre votre validation (réglage du
+     projet). Si quelque chose ne va pas, écrivez-le ici : j'en tiendrai compte. »
 5. Labels de l'issue : retire `factory:grilling`, ajoute `factory:spec-review`, et aussi `factory:auto-go`
    si la spec n'est pas à valider : la construction démarrera dès la fin de ce run.
