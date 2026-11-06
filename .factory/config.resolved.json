@@ -3,6 +3,7 @@
   "runner": "claude-cloud",
   "maxParallel": 2,
   "autoPick": false,
+  "maxQuestions": 2,
   "stack": "À choisir au cadrage",
   "stages": {
     "grilling": true,
@@ -24,6 +25,7 @@
     "test": true,
     "build": true,
     "a11y": true,
+    "e2e": true,
     "audit": true
   },
   "skills": {
@@ -65,15 +67,15 @@
         "grill-with-docs": true,
         "implement": false,
         "implement-spec": false,
-        "improve-codebase-architecture": false,
+        "improve-codebase-architecture": true,
         "pr": false,
-        "prototype": false,
+        "prototype": true,
         "research": false,
         "retro": false,
         "setup-matt-pocock-skills": false,
         "tdd": false,
         "to-spec": true,
-        "to-tickets": false,
+        "to-tickets": true,
         "triage": false,
         "wayfinder": false,
         "wizard": false
@@ -83,6 +85,12 @@
       "enabled": true,
       "skills": {
         "impeccable": true
+      }
+    },
+    "anthropic": {
+      "enabled": true,
+      "skills": {
+        "webapp-testing": true
       }
     }
   }

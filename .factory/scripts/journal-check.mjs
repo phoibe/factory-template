@@ -5,7 +5,7 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { CATCH_UP, expectations, missingSkills, parseJournal, redThenGreen, uiChanged } from './fabrication.mjs';
+import { CATCH_UP, expectations, missingSkills, parseJournal, redThenGreen, smallChange, uiChanged } from './fabrication.mjs';
 
 const HOW = {
   'writing-plans': 'charge le skill `writing-plans` (outil Skill) et écris le plan',
@@ -31,15 +31,29 @@ const GATED = ['build', 'bugfix', 'foundation', 'audit'];
 export function problems(files, readFile, stages, { stage = null, current = null } = {}) {
   const runs = parseJournal(files.filter((f) => JOURNAL.test(f)).map(readFile).filter(Boolean));
   const ui = uiChanged(files);
-  let missing = missingSkills(runs, { stages, ui });
+  const small = smallChange(files);
+  let missing = missingSkills(runs, { stages, ui, small });
   if (stage === 'skills-fix') missing = missing.filter((m) => CATCH_UP.includes(m.skill));
   else if (stage && !GATED.includes(stage)) return [];
   const out = missing.map((m) => `${m.label} : ${HOW[m.skill] || `charge le skill \`${m.skill}\``}`);
   const run = current ? parseJournal([current]).at(-1) : null;
-  if (run && GATED.includes(stage) && expectations(stage, stages, ui).some((e) => e.tdd && !missing.some((m) => m.skill === e.skill)) && !redThenGreen(run)) {
+  if (run && GATED.includes(stage) && expectations(stage, stages, ui, { small }).some((e) => e.tdd && !missing.some((m) => m.skill === e.skill)) && !redThenGreen(run)) {
     out.push('preuve TDD : lance un test qui échoue avec la commande de test du projet, puis fais-le passer');
   }
   return out;
+}
+
+// The run being checked from the command line: the journal whose latest « run » entry is the most recent. Its stage
+// is the one the lock applies, so both always agree on what is missing.
+export function runOptions(files, readFile) {
+  let best = null;
+  for (const f of files.filter((x) => JOURNAL.test(x))) {
+    const text = readFile(f);
+    const run = String(text || '').split('\n').map((l) => { try { return JSON.parse(l); } catch { return null; } })
+      .filter((e) => e?.kind === 'run').at(-1);
+    if (run && (!best || Date.parse(run.t) > Date.parse(best.run.t))) best = { run, text };
+  }
+  return best ? { stage: best.run.stage, current: best.text } : {};
 }
 
 export function report(files, readFile, stages, opts) {
@@ -67,7 +81,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     }
     const files = branchFiles(git);
     if (!files.some((f) => /^\.factory\/journal\/[^/]+\.jsonl$/.test(f))) console.log('Journal : aucun journal pour ce run. Lance ce contrôle depuis le dossier du projet, puis committe .factory/journal/.');
-    else console.log(report(files, read, stages));
+    else console.log(report(files, read, stages, runOptions(files, read)));
   } catch (e) {
     console.log(`Journal : contrôle impossible (${e.message}).`);
   }

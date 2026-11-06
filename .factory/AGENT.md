@@ -15,7 +15,8 @@ Chaque run reçoit un bloc `routine-fire-payload` (ou un prompt) contenant un JS
 
 1. Lis `.factory/stages/<stage>.md` et suis-le. C'est ta tâche pour ce run, rien de plus.
 2. Si `PRODUCT.md` existe à la racine (ou `docs/PRODUCT.md` sur un projet plus ancien), lis-le : c'est la
-   vision du produit et la stack validées par le propriétaire. Elles priment sur la ligne « Stack » ci-dessous. Si `DESIGN.md` existe, c'est le design validé : toute interface le suit. Si une feature
+   vision du produit et la stack validées par le propriétaire. Elles priment sur la ligne « Stack » ci-dessous. Si `DESIGN.md` existe, c'est le design validé : toute interface le suit. `STACK.md` est la fiche stack technique
+   du projet (technologies, bibliothèques, services), affichée dans le panneau : garde-la exacte. Si une feature
    validée change la vision, le périmètre ou le design, mets ces fichiers à jour dans la même PR.
 3. Lis l'issue (et la PR si `pr` est renseigné) en entier, commentaires compris (voir « API GitHub »
    ci-dessous). L'historique des commentaires est ta seule mémoire des runs précédents.
@@ -33,7 +34,7 @@ Chaque run reçoit un bloc `routine-fire-payload` (ou un prompt) contenant un JS
   bibliothèques reconnues) plutôt que de reconstruire.
 - Étapes actives : grilling ✅, validation de chaque spec ❌, plan ✅, TDD ✅, revue de code ✅, passe design (impeccable) ✅, captures avant/après ✅, contrôles automatiques ✅, recette ✅
 - Revue de code : au plus 3 allers-retours entre le développeur et le relecteur, ensuite escalade.
-- Skills installés dans `.claude/skills/` (utilise-les quand l'étape le demande) : `dispatching-parallel-agents`, `executing-plans`, `receiving-code-review`, `requesting-code-review`, `subagent-driven-development`, `systematic-debugging`, `test-driven-development`, `verification-before-completion`, `writing-plans`, `grilling`, `domain-modeling`, `grill-with-docs`, `to-spec`, `impeccable`
+- Skills installés dans `.claude/skills/` (utilise-les quand l'étape le demande) : `dispatching-parallel-agents`, `executing-plans`, `receiving-code-review`, `requesting-code-review`, `subagent-driven-development`, `systematic-debugging`, `test-driven-development`, `verification-before-completion`, `writing-plans`, `grilling`, `domain-modeling`, `grill-with-docs`, `improve-codebase-architecture`, `prototype`, `to-spec`, `to-tickets`, `impeccable`, `webapp-testing`
 
 Si une étape est désactivée ci-dessus, saute-la même si une instruction d'étape la mentionne.
 
@@ -107,8 +108,33 @@ ensemble : les contrôles tournent pendant qu'il regarde les captures, et son «
   Quand le propriétaire demande de fermer ou d'abandonner (une demande, une PR), ajoute le label `factory:close`
   à cette issue ou PR, dis-lui en une phrase que c'est noté, puis retire `factory:running` comme d'habitude : la
   factory ferme alors elle-même l'issue et sa PR, et libère la place. Ne lui demande jamais de fermer à la main.
-- Quand tu ouvres une issue pour une idée nouvelle, mets `<!-- factory-agent -->` au début de sa description
-  et le label `factory:feature` : elle ne démarrera que quand le propriétaire y écrira.
+- **Fermer de toi-même une demande inutile**, sans lui demander de confirmer : seulement une feature ou un bug (jamais
+  un cadrage `factory:project` ni une revue `factory:audit`), à n'importe quelle étape, et seulement dans trois cas
+  sans ambiguïté, avec une preuve (un lien) : **déjà réglée** par une autre demande ou PR, **en double** d'une
+  demande encore ouverte, ou **obsolète** (elle porte sur quelque chose qui n'existe plus). Au moindre doute (réglée
+  en partie, pas certain), pose-lui la question comme d'habitude, sans fermer. Pour fermer :
+  1. Pour un doublon, ferme la plus récente des deux, et recopie d'abord dans la plus ancienne, en commentaire
+     (avec `<!-- factory-agent -->`), ce que la récente apportait de nouveau (une précision, une capture).
+  2. Laisse **un seul message** court dans la demande : la raison avec son lien (« Déjà réglée par #… », « En double
+     de #… », « Obsolète : … »), et « Si vous n'êtes pas d'accord, écrivez ici : la demande se rouvrira et reprendra
+     là où elle en était. »
+  3. Ajoute à l'issue `factory:close` **et** le label de la raison : `factory:already-done`, `factory:duplicate` ou
+     `factory:obsolete`. La factory ferme l'issue et sa PR sans autre message, et la rouvre si le propriétaire y écrit.
+- **Ouvrir une issue.** Mets toujours `<!-- factory-agent -->` au début de sa description et le label
+  `factory:feature` (ou `factory:bug`). Puis :
+  - **L'idée vient du propriétaire** (une remarque de sa part qui sort de la PR en cours, une feature de la
+    fiche produit qu'il a validée) : ajoute aussi le label `factory:kept`. Elle suit alors son parcours habituel.
+  - **L'idée vient de toi** (repérée pendant une construction, une review générale…) : pas de `factory:kept`.
+    Elle attend dans « Idées à trier » du tableau, où il la garde ou la jette d'un clic : n'en parle pas comme
+    d'une chose à faire.
+  - **Avant de proposer une idée à toi**, vérifie qu'il ne l'a pas déjà refusée : relis les décisions du projet
+    (`docs/adr/`, le glossaire) et les demandes qu'il a abandonnées
+    (`gh api "R/issues?state=closed&per_page=100" --jq '.[] | select(.state_reason=="not_planned") | "#\(.number) \(.title)"'`,
+    puis le fil de celles qui ressemblent à ton idée). Une idée refusée, ou contraire à `PRODUCT.md`, ne se repropose
+    pas, même autrement formulée. Cherche aussi dans les issues ouvertes : jamais deux fois le même sujet.
+- **Quand il refuse une idée ou un choix** (« non, on n'a pas besoin de… »), note-le dans les décisions du projet
+  (`docs/adr/`, une phrase : ce qui a été refusé et pourquoi) dans la PR en cours ou la prochaine petite PR de
+  documents : c'est la mémoire qui évite de le lui reproposer.
 
 ## Code et Git
 
@@ -120,6 +146,9 @@ ensemble : les contrôles tournent pendant qu'il regarde les captures, et son «
   suivi de `factory:visual-review` ou `factory:checks` : `git fetch origin main && git merge origin/main` (pas de
   rebase), résous les conflits, relance les tests, puis pousse. Une PR en conflit ne déclenche aucun contrôle et
   reste bloquée jusqu'à ce que la factory s'en aperçoive.
+- **Tests navigateur dans le cloud** : le Chromium de la session est `/opt/pw-browsers/chromium`. Lance `test:a11y`
+  (et tout test Playwright) avec `CHROMIUM_PATH=/opt/pw-browsers/chromium` et un `timeout 300` : sans lui, un
+  Chromium introuvable peut bloquer le test plusieurs minutes. Ne lance pas `playwright install`.
 - Les captures d'écran vont sur la branche `claude/factory-assets` via `.factory/scripts/shots.mjs publish`.
 
 ## Interdits
@@ -129,5 +158,5 @@ ensemble : les contrôles tournent pendant qu'il regarde les captures, et son «
   phrase, donne le lien exact où il doit aller (ex. « Settings → Secrets and variables → Actions »), mets
   `factory:blocked` et termine.
 - Ne désactive, ne saute et ne supprime jamais un test ou un contrôle pour obtenir du vert.
-- N'élargis jamais une PR à une idée nouvelle : ouvre une nouvelle issue avec le label `factory:feature`.
+- N'élargis jamais une PR à une idée nouvelle : ouvre une nouvelle issue (voir « Ouvrir une issue »).
 - Ne lis pas de secrets, ne les affiche jamais.
