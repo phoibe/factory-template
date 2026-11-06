@@ -1,6 +1,7 @@
 {
   "version": 1,
   "runner": "claude-cloud",
+  "machine": "default",
   "maxParallel": 2,
   "autoPick": false,
   "maxQuestions": 2,
