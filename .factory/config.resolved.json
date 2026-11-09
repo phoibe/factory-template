@@ -2,7 +2,6 @@
   "version": 1,
   "runner": "claude-cloud",
   "machine": "default",
-  "production": "auto",
   "maxParallel": 2,
   "autoPick": false,
   "maxQuestions": 2,
