@@ -2,11 +2,11 @@
 
 But : une vision commune du produit et un choix de stack, validés par le propriétaire, avant toute feature.
 
-**Qui fait quoi.** Tout ce que cette étape demande de réfléchir ou de rédiger est fait par un sous-agent du rôle `plan`
-(« Phase amont » dans AGENT.md) : donne-lui ce fichier à suivre et dis-lui qu'il n'écrit rien sur GitHub (commentaire,
-label, issue, PR) et ne pousse rien : là où ce fichier dit « publie », « mets le label » ou « ouvre une issue », il
-écrit le texte dans un fichier et te le rend. Toi, tu publies son texte, terminé par la ligne de
-`node .factory/scripts/upstream.mjs <n>`, et tu poses les labels.
+**Qui fait quoi.** Tout ce que cette étape demande de réfléchir ou de rédiger est fait par un sous-agent du rôle `plan`,
+lancé avec la description `[role:plan:amont]` (« Phase amont » dans AGENT.md) : donne-lui ce fichier à suivre et dis-lui
+qu'il n'écrit rien sur GitHub (commentaire, label, issue, PR) et ne pousse rien : là où ce fichier dit « publie »,
+« mets le label » ou « ouvre une issue », il écrit le texte dans un fichier et te le rend. Toi, tu publies son texte,
+terminé par la ligne de `node .factory/scripts/upstream.mjs <n> <fichier>`, et tu poses les labels.
 
 Cette étape a lieu une fois par projet, sur l'issue « Nouveau projet » (label `factory:project`).
 
@@ -22,7 +22,7 @@ application (un `package.json`, du code source), c'est une **adoption** :
 - **Stack** : garde celle en place. N'en propose une autre que si le propriétaire le demande ou si elle
   empêche vraiment un besoin décidé.
 - **Hébergement** : regarde toi-même si le dépôt est déjà déployé quelque part (déploiements et environnements
-  GitHub, fichiers de configuration d'hébergeur à la racine, GitHub Pages, commentaires de bots d'hébergeur sur les anciennes PR,
+  GitHub, fichiers de configuration d'hébergeur à la racine, GitHub Pages, commentaires de bots d'hébergeur sur les anciennes PR (lus avec `node .factory/scripts/thread.mjs <numéro de PR>`),
   adresse du site dans le README). S'il l'est, garde cet hébergeur et ne demande rien. Sinon, propose-en un
   avec la stack, comme pour un nouveau projet.
 - La fiche finale décrit l'appli telle qu'elle est plus ce qui vient ensuite ; « Première version » devient
